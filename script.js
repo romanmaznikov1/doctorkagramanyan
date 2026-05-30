@@ -7,13 +7,29 @@
 (function(){
   var t=document.querySelector('.nav-toggle');
   var m=document.getElementById('mobileMenu');
+  var bd=document.getElementById('menuBackdrop');
   if(!t||!m) return;
-  function close(){m.classList.remove('open');t.classList.remove('open');t.setAttribute('aria-expanded','false');}
+
+  function close(){
+    m.classList.remove('open');
+    t.classList.remove('open');
+    t.setAttribute('aria-expanded','false');
+    if(bd){bd.classList.remove('open');bd.setAttribute('aria-hidden','true');}
+    document.body.style.overflow='';
+  }
+
   t.addEventListener('click',function(){
     var open=m.classList.toggle('open');
     t.classList.toggle('open',open);
     t.setAttribute('aria-expanded',open?'true':'false');
+    if(bd){bd.classList.toggle('open',open);bd.setAttribute('aria-hidden',open?'false':'true');}
+    // lock body scroll so content behind the open menu can't scroll (mobile)
+    document.body.style.overflow=open?'hidden':'';
   });
+
+  // tap the backdrop to close
+  if(bd) bd.addEventListener('click',close);
+
   m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close)});
   addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
@@ -35,16 +51,26 @@
 // ---- before / after comparison sliders ----
 (function(){
   document.querySelectorAll('.ba').forEach(function(ba){
-    var drag=false;
+    var drag=false,captured=false,pid=null;
     function set(x){
       var r=ba.getBoundingClientRect();
       var p=(x-r.left)/r.width*100;
       ba.style.setProperty('--pos', Math.max(2,Math.min(98,p))+'%');
     }
-    ba.addEventListener('pointerdown',function(e){drag=true;ba.setPointerCapture(e.pointerId);set(e.clientX)});
-    ba.addEventListener('pointermove',function(e){if(drag)set(e.clientX)});
-    ba.addEventListener('pointerup',function(){drag=false});
-    ba.addEventListener('pointercancel',function(){drag=false});
+    ba.addEventListener('pointerdown',function(e){
+      drag=true;captured=false;pid=e.pointerId;
+      // mouse: jump to the click right away. touch: wait for a real horizontal
+      // drag so a vertical swipe still scrolls the page (touch-action:pan-y).
+      if(e.pointerType!=='touch'){ba.setPointerCapture(e.pointerId);captured=true;set(e.clientX);}
+    });
+    ba.addEventListener('pointermove',function(e){
+      if(!drag)return;
+      if(!captured){try{ba.setPointerCapture(pid);}catch(_){}captured=true;}
+      set(e.clientX);
+    });
+    function end(){drag=false;captured=false;}
+    ba.addEventListener('pointerup',end);
+    ba.addEventListener('pointercancel',end);
     ba.addEventListener('keydown',function(e){
       var cur=parseFloat(ba.style.getPropertyValue('--pos'))||52;
       if(e.key==='ArrowLeft'){ba.style.setProperty('--pos',Math.max(2,cur-5)+'%');e.preventDefault();}
@@ -60,5 +86,19 @@
   addEventListener('scroll',function(){
     if(scrollY>30){nav.style.boxShadow='0 20px 44px -26px rgba(44,53,59,.6)';nav.style.background='rgba(255,255,255,.92)';}
     else{nav.style.boxShadow='0 14px 30px -22px rgba(44,53,59,.5)';nav.style.background='rgba(255,255,255,.74)';}
-  });
+  },{passive:true});
+})();
+
+// ---- sticky mobile CTA (appears after hero scrolls past) ----
+(function(){
+  var cta=document.getElementById('stickyCta');
+  if(!cta) return;
+  var hero=document.querySelector('.hero');
+  function update(){
+    var past=hero?hero.getBoundingClientRect().bottom<0:false;
+    cta.classList.toggle('show',past);
+    cta.setAttribute('aria-hidden',past?'false':'true');
+  }
+  addEventListener('scroll',update,{passive:true});
+  update();
 })();
