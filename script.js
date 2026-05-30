@@ -88,17 +88,3 @@
     else{nav.style.boxShadow='0 14px 30px -22px rgba(44,53,59,.5)';nav.style.background='rgba(255,255,255,.74)';}
   },{passive:true});
 })();
-
-// ---- sticky mobile CTA (appears after hero scrolls past) ----
-(function(){
-  var cta=document.getElementById('stickyCta');
-  if(!cta) return;
-  var hero=document.querySelector('.hero');
-  function update(){
-    var past=hero?hero.getBoundingClientRect().bottom<0:false;
-    cta.classList.toggle('show',past);
-    cta.setAttribute('aria-hidden',past?'false':'true');
-  }
-  addEventListener('scroll',update,{passive:true});
-  update();
-})();
