@@ -428,6 +428,36 @@ nav{
 .link-arrow{flex:none;font-size:1.3rem;color:var(--brand);transition:transform .3s}
 .link-card:hover .link-arrow{transform:translateX(4px)}
 
+/* ---------- EDUCATION TIMELINE ---------- */
+.edu-wrap{margin-top:72px;padding-top:56px;border-top:1px solid rgba(94,136,150,.14)}
+.edu-head{text-align:center;margin-bottom:44px}
+.edu-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem);margin:.3em 0 0;color:var(--ink)}
+.edu-head h2 .italic{color:var(--brand)}
+.edu-timeline{max-width:760px;margin:0 auto}
+.edu-block{display:grid;grid-template-columns:80px 1fr;gap:0 40px}
+.edu-yr{
+  font-family:"Playfair Display",serif;font-size:1.95rem;font-weight:700;
+  color:var(--brand-deep);line-height:1;font-variant-numeric:tabular-nums;
+  padding-top:4px;text-align:right;
+}
+.edu-list{
+  list-style:none;padding:0 0 44px 32px;margin:0;
+  border-left:2px solid rgba(94,136,150,.25);
+  display:flex;flex-direction:column;gap:22px;
+}
+.edu-block:last-child .edu-list{padding-bottom:0;border-left-color:transparent}
+.edu-item{position:relative}
+.edu-item::before{
+  content:"";position:absolute;left:-40px;top:7px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--brand);box-shadow:0 0 0 4px rgba(94,136,150,.15);
+}
+.edu-name{
+  font-family:"Playfair Display",serif;font-size:1.04rem;font-weight:600;
+  color:var(--ink);line-height:1.38;margin:0 0 .22em;
+}
+.edu-author{font-size:.88rem;color:var(--ink-soft);font-weight:500;margin:0}
+
 /* ---------- FOOTER ---------- */
 footer{background:var(--ink);color:#ECEAE4;margin-top:60px;border-radius:50px 50px 0 0;overflow:hidden;position:relative;
   content-visibility:auto;contain-intrinsic-block-size:400px}
@@ -514,6 +544,15 @@ footer .f-about{color:rgba(236,234,228,.7);max-width:32ch;font-size:.95rem}
   .link-card{padding:22px 20px}
 
   .links-grid{grid-template-columns:1fr}
+  .edu-wrap{margin-top:52px;padding-top:40px}
+  .edu-head{margin-bottom:32px}
+  .edu-block{grid-template-columns:56px 1fr;gap:0 20px}
+  .edu-yr{font-size:1.4rem;text-align:right}
+  .edu-list{padding-left:22px;gap:16px;padding-bottom:32px}
+  .edu-block:last-child .edu-list{padding-bottom:0}
+  .edu-item::before{left:-28px;top:6px}
+  .edu-name{font-size:.97rem}
+  .edu-author{font-size:.84rem}
   .footer-in{grid-template-columns:1fr;gap:26px;padding:52px 22px 28px}
   .f-col a{padding:8px 0}
   .f-bottom{flex-direction:column;align-items:flex-start}
