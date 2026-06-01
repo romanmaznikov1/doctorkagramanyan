@@ -12,17 +12,21 @@
 <meta property="og:locale" content="ru_RU" />
 <meta property="og:title" content="Эдгар Каграманян — стоматолог-хирург, имплантолог" />
 <meta property="og:description" content="Хирургия и имплантация в Ставрополе. Сложные удаления, костная пластика, синус-лифтинг и зубы на имплантах под ключ — предсказуемо и без боли." />
-<meta property="og:image" content="images/hero.jpg" />
+<meta property="og:image" content="images/hero.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Эдгар Каграманян — стоматолог-хирург, имплантолог" />
 <meta name="twitter:description" content="Хирургия и имплантация в Ставрополе. Восстановление зубов на имплантах под ключ — предсказуемо и без боли." />
-<meta name="twitter:image" content="images/hero.jpg" />
+<meta name="twitter:image" content="images/hero.png" />
 
 <!-- branded favicon: the tooth mark in brand teal -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233E5C66'/%3E%3Cpath d='M16 7c-3.1 0-4.4-1.4-6.6-1.4C6.9 5.6 5.5 7.2 5.5 10.5c0 3 .8 5.9 1.8 8.8.6 1.9 1 3.7 2.3 3.7 1.4 0 1.4-2.8 2.1-4.9.4-1.3 1-2.1 2.1-2.1s1.7.8 2.1 2.1c.7 2.1.7 4.9 2.1 4.9 1.2 0 1.7-1.8 2.3-3.7 1-2.9 1.8-5.8 1.8-8.8 0-3.3-1.4-4.9-3.9-4.9C20.4 5.6 19.1 7 16 7Z' fill='%23C2D5D8'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..700&family=Playfair+Display:ital,wght@0,400..800;1,400..600&display=swap" rel="stylesheet">
+<!-- preload hero (LCP) — WebP для поддерживающих браузеров -->
+<link rel="preload" as="image" href="images/hero.webp" type="image/webp" fetchpriority="high">
+<!-- fonts: non-blocking load, swap prevents blank text -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"></noscript>
 <link rel="stylesheet" href="styles.css">
 <script src="script.js" defer></script>
 </head>
@@ -44,7 +48,7 @@
       <svg class="mark" viewBox="0 0 32 32" fill="none">
         <path d="M16 5c-3.5 0-5-1.6-7.5-1.6C5.6 3.4 4 5.3 4 9c0 3.4.9 6.7 2 10 .7 2.2 1.2 4.2 2.6 4.2 1.6 0 1.6-3.2 2.4-5.6.5-1.5 1.2-2.4 2.4-2.4s1.9.9 2.4 2.4c.8 2.4.8 5.6 2.4 5.6 1.4 0 1.9-2 2.6-4.2 1.1-3.3 2-6.6 2-10 0-3.7-1.6-5.6-4.5-5.6C21 3.4 19.5 5 16 5Z" fill="currentColor"/>
       </svg>
-      Каграманян
+      Эдгар Гамлетович
     </a>
     <div class="nav-links">
       <a href="#works">Работы</a>
@@ -83,27 +87,28 @@
       <span class="load" style="--delay:.42s;display:block">Гамлетович</span>
     </h1>
     <p class="lead load" style="--delay:.56s">
-      Я стоматолог-хирург и имплантолог и веду каждого пациента сам —
-      от 3D-диагностики до операции и результата. Сложные удаления, костная пластика
-      и восстановление зубов на имплантах — спокойно, предсказуемо и без боли.
+      Я стоматолог-хирург-имплантолог.
+      Восстанавливаю здоровье, функцию и эстетику улыбки с помощью современных, безопасных и проверенных методик лечения.
     </p>
     <div class="hero-actions load" style="--delay:.68s">
       <a href="#visit" class="btn btn-fill">Записаться на приём <span class="btn-arrow">→</span></a>
       <a href="#about" class="btn btn-ghost">О докторе</a>
     </div>
     <div class="trust load" style="--delay:.8s">
-      <div class="t"><span class="num">Без боли</span><span class="lbl">седация / наркоз</span></div>
+      <div class="t"><span class="num">Без боли</span><span class="lbl">комфортное лечение</span></div>
       <div class="divider"></div>
       <div class="t"><span class="num">100<span style="color:var(--brand)">%</span></span><span class="lbl">стерильность по протоколу</span></div>
       <div class="divider"></div>
-      <div class="t"><span class="num">Гарантия</span><span class="lbl">пожизненно на работу</span></div>
+      <div class="t"><span class="num">Гарантия</span><span class="lbl">на всю работу</span></div>
     </div>
   </div>
 
   <div class="hero-visual">
-    <div class="chip"><span class="d"></span> Принимаю новых пациентов</div>
     <div class="blob-portrait">
-      <img class="hero-photo" src="images/hero.jpg" alt="Эдгар Каграманян — стоматолог-хирург, имплантолог" loading="eager" decoding="async" fetchpriority="high">
+        <picture>
+          <source srcset="images/hero.webp" type="image/webp">
+          <img class="hero-photo" src="images/hero.png" alt="Эдгар Каграманян — стоматолог-хирург, имплантолог" width="1345" height="1170" loading="eager" decoding="async" fetchpriority="high">
+        </picture>
     </div>
   </div>
 </header>
@@ -111,8 +116,8 @@
 <!-- ============================ MARQUEE ============================ -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>Имплантация</span><span>Костная пластика</span><span>Синус-лифтинг</span><span>Без боли</span><span>Цифровая диагностика</span><span>Гарантия</span>
-    <span>Имплантация</span><span>Костная пластика</span><span>Синус-лифтинг</span><span>Без боли</span><span>Цифровая диагностика</span><span>Гарантия</span>
+    <span>Имплантация</span><span>Костная пластика</span><span>Синус-лифтинг</span><span>Удаление зубов</span><span>All-on-4 / All-on-6</span><span>Резекция верхушки корня</span><span>Аутотрансплантация</span><span>Закрытие рецессий десны</span><span>Ортодонтические имплантаты / винты</span>
+    <span>Имплантация</span><span>Костная пластика</span><span>Синус-лифтинг</span><span>Удаление зубов</span><span>All-on-4 / All-on-6</span><span>Резекция верхушки корня</span><span>Аутотрансплантация</span><span>Закрытие рецессий десны</span><span>Ортодонтические имплантаты / винты</span>
   </div>
 </div>
 
@@ -221,41 +226,26 @@
 <!-- ============================ ABOUT ============================ -->
 <section class="section approach" id="about">
   <div class="approach-visual reveal">
-    <img class="approach-photo" src="images/hero.jpg" alt="Эдгар Каграманян — стоматолог-хирург, имплантолог" loading="lazy" decoding="async">
+    <img class="approach-photo" src="images/about.jpg" alt="Эдгар Каграманян — стоматолог-хирург, имплантолог" width="1024" height="1280" loading="lazy" decoding="async">
   </div>
   <div class="approach-text reveal">
     <span class="eyebrow">О докторе</span>
-    <h2>Стоматолог-хирург и <span class="italic">имплантолог</span>.</h2>
+    <h2>Стоматолог-хирург - <span class="italic">имплантолог</span>.</h2>
     <p class="lead-para">
-      Я узкоспециализированный врач и занимаюсь только хирургией и имплантацией.
-      Сложные удаления, костная пластика и восстановление зубов на имплантах — это
-      то, что я делаю каждый день и довожу до предсказуемого результата.
+      Специализируюсь на восстановлении зубов и зубочелюстной системы. Выполняю удаление зубов любой сложности, имплантацию, аутотрансплантацию зубов, костную и мягкотканную пластику, а также полное восстановление зубного ряда по протоколам All-on-4, All-on-6 и All-on-X.
     </p>
     <p>
-      Я веду каждого пациента лично — от 3D-диагностики и планирования до операции и
-      наблюдения после. Никакой передачи «из рук в руки»: за весь хирургический и
-      имплантологический этап отвечаю я один.
+      Лично сопровождаю каждого пациента на всех этапах лечения — от 3D-диагностики и планирования до операции и последующего наблюдения. Работаю вместе с опытной командой специалистов и ассистентов, чтобы обеспечить комфорт, безопасность и прогнозируемый результат.
     </p>
     <div class="pillars">
       <div class="pillar">
         <span class="idx">01</span>
-        <div class="pillar-body"><h4>Стоматолог-хирург</h4><p>Удаления любой сложности, костная пластика и синус-лифтинг по щадящим протоколам с быстрым восстановлением.</p></div>
+        <div class="pillar-body"><h4>Стоматолог-хирург</h4><p>Удаление зубов любой сложности, аутотрансплантация, резекция верхушки корня и пластика десны. Использую современные малоинвазивные методики для быстрого восстановления и сохранения тканей.</p></div>
       </div>
       <div class="pillar">
         <span class="idx">02</span>
-        <div class="pillar-body"><h4>Стоматолог-имплантолог</h4><p>Восстановление одного зуба и полной челюсти на имплантах — с цифровым планированием и пожизненной гарантией на свою работу.</p></div>
+        <div class="pillar-body"><h4>Стоматолог-имплантолог</h4><p>Имплантация одного, нескольких или всех зубов с цифровым планированием. Костная пластика, синус-лифтинг и наращивание десны для надежного и долговечного результата.</p></div>
       </div>
-    </div>
-    <div class="svc-mini">
-      <span class="svc-mini-label">Что я делаю:</span>
-      <ul class="svc-tags">
-        <li>Удаление зубов</li>
-        <li>Костная пластика</li>
-        <li>Синус-лифтинг</li>
-        <li>Имплантация под ключ</li>
-        <li>All-on-4 / All-on-6</li>
-        <li>Немедленная нагрузка</li>
-      </ul>
     </div>
   </div>
 </section>
@@ -266,26 +256,67 @@
     <span class="eyebrow">Отзывы</span>
     <h2>Что говорят мои <span class="italic">пациенты</span>.</h2>
   </div>
-  <div class="stories">
-    <div class="story-feature reveal">
-      <div class="mark-q">”</div>
-      <blockquote>Я десять лет избегала стоматологов из-за страха. Доктор Каграманян всё спокойно объяснил, и лечение прошло совершенно безболезненно. Теперь прихожу без тревоги.</blockquote>
-      <div class="by">
-        <div class="av">М</div>
-        <div><div class="n">Марина Соколова</div><div class="r">Пациент с 2021 года</div></div>
+  <div class="stories-carousel">
+    <div class="carousel-track" id="reviewTrack">
+
+      <div class="review-card">
+        <div class="review-tag">Имплантация 4 зубов</div>
+        <div class="review-stars">★★★★★</div>
+        <blockquote class="review-text">«Долгое время откладывала лечение и очень боялась имплантации. На первой консультации мне сделали КТ, подробно объяснили план лечения и ответили на все вопросы. Установка 4 имплантов прошла комфортно и безболезненно, а восстановление оказалось гораздо легче, чем я ожидала. Очень рада, что доверилась именно этому врачу.»</blockquote>
+        <div class="review-badge">Проверенный отзыв</div>
       </div>
+
+      <div class="review-card">
+        <div class="review-tag">Удаление нескольких сложных зубов</div>
+        <div class="review-stars">★★★★★</div>
+        <blockquote class="review-text">«Удалял сразу 5 зубов, включая зубы мудрости. Во время операции доктор подробно объяснял каждый этап, постоянно интересовался самочувствием и давал рекомендации. Всё прошло без боли и дискомфорта, восстановление было спокойным и понятным.»</blockquote>
+        <div class="review-badge">Проверенный отзыв</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-tag">Удаление зубов мудрости и пересадка зуба</div>
+        <div class="review-stars">★★★★★</div>
+        <blockquote class="review-text">«Очень боялась стоматологов и сложной операции, но врач и его команда создали максимально комфортную атмосферу. Удаление зубов мудрости и пересадка зуба прошли без боли, а после операции меня сопровождали до полного восстановления. Теперь обращаюсь только к этому специалисту.»</blockquote>
+        <div class="review-badge">Проверенный отзыв</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-tag">Имплантация и удаление зубов мудрости</div>
+        <div class="review-stars">★★★★★</div>
+        <blockquote class="review-text">«Доктор удалил зубы мудрости и выполнил имплантацию по заранее составленному плану лечения. Особенно понравилось внимательное отношение, постоянный контроль самочувствия и подробные рекомендации после операции.»</blockquote>
+        <div class="review-badge">Проверенный отзыв</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-tag">Аутотрансплантация зуба</div>
+        <div class="review-stars">★★★★★</div>
+        <blockquote class="review-text">«Из-за отсутствия костной ткани мне предложили пересадку собственного зуба вместо имплантации. Врач подробно рассказал о процедуре, операция прошла аккуратно и безболезненно, а результат полностью оправдал ожидания.»</blockquote>
+        <div class="review-badge">Проверенный отзыв</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-tag">Пересадка зуба при сложном случае</div>
+        <div class="review-stars">★★★★★</div>
+        <blockquote class="review-text">«После диагностики выявили большую кисту и предложили два варианта лечения. Я выбрал пересадку зуба. Доктор всё подробно объяснил, операция прошла успешно, результатом очень доволен.»</blockquote>
+        <div class="review-badge">Проверенный отзыв</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-tag">Удаление зубов мудрости</div>
+        <div class="review-stars">★★★★★</div>
+        <blockquote class="review-text">«Удаляла два зуба мудрости. Несмотря на сложность случая, оба удаления прошли быстро и безболезненно. Врач внимательно следил за моим состоянием, дал подробные рекомендации и оставил только положительные впечатления от лечения.»</blockquote>
+        <div class="review-badge">Проверенный отзыв</div>
+      </div>
+
     </div>
-    <div class="story-col">
-      <div class="story-card reveal">
-        <div class="stars">★★★★★</div>
-        <p>«Сохранил зуб, который в двух других клиниках предлагали удалить.»</p>
-        <div class="by"><div class="av">Д</div><div><div class="n">Дмитрий Орлов</div><div class="r">Проверенный отзыв</div></div></div>
-      </div>
-      <div class="story-card reveal">
-        <div class="stars">★★★★★</div>
-        <p>«Дети теперь сами просят записать их к стоматологу. Не думала, что такое возможно.»</p>
-        <div class="by"><div class="av">А</div><div><div class="n">Анна Петрова</div><div class="r">Проверенный отзыв</div></div></div>
-      </div>
+    <div class="carousel-nav">
+      <button class="carousel-btn" id="reviewPrev" aria-label="Предыдущий отзыв">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="carousel-dots" id="reviewDots"></div>
+      <button class="carousel-btn" id="reviewNext" aria-label="Следующий отзыв">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -326,7 +357,11 @@
       <div class="info-list">
         <div class="info">
           <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <div><div class="it">Часы приёма</div><div class="iv">Пн–Пт · 9:00–20:00 · Сб · 10:00–16:00</div></div>
+          <div><div class="it">Часы приёма</div><div class="iv">Пн–Пт · 9:00–22:00 · Сб–Вс · 10:00–18:00</div></div>
+        </div>
+        <div class="info">
+          <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 18l-1 4a16 16 0 0 1-14-14Z"/></svg></div>
+          <div><div class="it">Личный номер врача</div><div class="iv"><a href="tel:+79283846925" style="color:inherit;text-decoration:none">+7 928 384-69-25</a></div></div>
         </div>
       </div>
     </div>
@@ -368,7 +403,7 @@
         <svg class="mark" viewBox="0 0 32 32" fill="none">
           <path d="M16 5c-3.5 0-5-1.6-7.5-1.6C5.6 3.4 4 5.3 4 9c0 3.4.9 6.7 2 10 .7 2.2 1.2 4.2 2.6 4.2 1.6 0 1.6-3.2 2.4-5.6.5-1.5 1.2-2.4 2.4-2.4s1.9.9 2.4 2.4c.8 2.4.8 5.6 2.4 5.6 1.4 0 1.9-2 2.6-4.2 1.1-3.3 2-6.6 2-10 0-3.7-1.6-5.6-4.5-5.6C21 3.4 19.5 5 16 5Z" fill="currentColor"/>
         </svg>
-        Каграманян
+        Эдгар Гамлетович
       </a>
       <p class="f-about">Авторская практика стоматолога-хирурга и имплантолога Эдгара Каграманяна в Ставрополе. Веду каждого пациента лично.</p>
     </div>
@@ -385,10 +420,15 @@
       <a href="#about">Удаление зубов</a>
       <a href="#about">Костная пластика</a>
       <a href="#about">Синус-лифтинг</a>
+      <a href="#about">All-on-4 / All-on-6</a>
+      <a href="#about">Аутотрансплантация</a>
+      <a href="#about">Резекция верхушки корня</a>
+      <a href="#about">Закрытие рецессий десны</a>
     </div>
     <div class="f-col">
       <h5>Контакты</h5>
       <a href="#visit">Записаться на приём</a>
+      <a href="tel:+79283846925">+7 928 384-69-25</a>
       <a href="tel:+78652222837">+7 865 222-28-37</a>
       <a href="https://t.me/edgargamletovich" target="_blank" rel="noopener">Telegram · @edgargamletovich</a>
       <a href="https://prodoctorov.ru/stavropol/vrach/1279348-kagramanyan/" target="_blank" rel="noopener">Профиль на ПроДокторов</a>

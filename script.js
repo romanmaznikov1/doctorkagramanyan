@@ -44,7 +44,7 @@
       }
     });
   },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.svc-grid .reveal, .stats .reveal, .story-col .reveal').forEach(function(el,i){el.dataset.d=(i%3)*90});
+  document.querySelectorAll('.svc-grid .reveal, .stats .reveal').forEach(function(el,i){el.dataset.d=(i%3)*90});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
 })();
 
@@ -79,7 +79,63 @@
   });
 })();
 
-// ---- nav shadow on scroll ----
+// ---- reviews carousel ----
+(function(){
+  var track = document.getElementById('reviewTrack');
+  var prev  = document.getElementById('reviewPrev');
+  var next  = document.getElementById('reviewNext');
+  var dotsEl= document.getElementById('reviewDots');
+  if(!track) return;
+
+  var cards = Array.from(track.querySelectorAll('.review-card'));
+  var dots  = [];
+
+  // build dots
+  cards.forEach(function(_, i){
+    var btn = document.createElement('button');
+    btn.className = 'carousel-dot' + (i===0?' active':'');
+    btn.setAttribute('aria-label', 'Отзыв ' + (i+1));
+    btn.addEventListener('click', function(){ scrollTo(i); });
+    dotsEl.appendChild(btn);
+    dots.push(btn);
+  });
+
+  function getCardWidth(){
+    return cards[0] ? cards[0].offsetWidth + parseInt(getComputedStyle(track).gap||'0') : 0;
+  }
+
+  function scrollTo(i){
+    track.scrollTo({left: i * getCardWidth(), behavior:'smooth'});
+  }
+
+  function currentIndex(){
+    var w = getCardWidth();
+    return w ? Math.round(track.scrollLeft / w) : 0;
+  }
+
+  var carousel = track.parentElement;
+
+  function updateDots(){
+    var idx = currentIndex();
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+    var atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 10;
+    carousel.classList.toggle('scrolled', track.scrollLeft > 20);
+    carousel.classList.toggle('at-end', atEnd);
+  }
+
+  prev.addEventListener('click', function(){ scrollTo(Math.max(0, currentIndex()-1)); });
+  next.addEventListener('click', function(){ scrollTo(Math.min(cards.length-1, currentIndex()+1)); });
+
+  track.addEventListener('scroll', updateDots, {passive:true});
+
+  // keyboard navigation when carousel is focused
+  track.setAttribute('tabindex','0');
+  track.addEventListener('keydown', function(e){
+    if(e.key==='ArrowLeft'){scrollTo(Math.max(0,currentIndex()-1));e.preventDefault();}
+    if(e.key==='ArrowRight'){scrollTo(Math.min(cards.length-1,currentIndex()+1));e.preventDefault();}
+  });
+})();
+
 (function(){
   var nav=document.querySelector('nav');
   if(!nav) return;
