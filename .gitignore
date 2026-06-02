@@ -2,3 +2,16 @@
 .agents/
 .DS_Store
 skills-lock.json
+
+# Playwright (тестовая обвязка — не часть сайта)
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/package.json
+/package-lock.json
+/playwright.config.ts
+/tests/
+/.github/
