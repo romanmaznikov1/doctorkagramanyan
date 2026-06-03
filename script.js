@@ -44,7 +44,6 @@
       }
     });
   },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.svc-grid .reveal, .stats .reveal').forEach(function(el,i){el.dataset.d=(i%3)*90});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
 })();
 
@@ -147,33 +146,54 @@
   });
 })();
 
-// ---- works: horizontal scroll + dots ----
+// ---- shared: horizontal scroller (dots + arrows) ----
+function buildScroller(track, dotsEl){
+  var items = Array.prototype.slice.call(track.children);
+  if(items.length < 2) return null;            // нечего листать
+
+  var ARROW = function(d){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="'
+      + (d === 'prev' ? '15 18 9 12 15 6' : '9 18 15 12 9 6') + '"/></svg>';
+  };
+  var prev = document.createElement('button');
+  prev.type = 'button'; prev.className = 'scroller-arrow'; prev.setAttribute('aria-label', 'Назад'); prev.innerHTML = ARROW('prev');
+  var next = document.createElement('button');
+  next.type = 'button'; next.className = 'scroller-arrow'; next.setAttribute('aria-label', 'Вперёд'); next.innerHTML = ARROW('next');
+  var dotsWrap = document.createElement('div'); dotsWrap.className = 'scroller-dots';
+
+  function step(){ return items[0].offsetWidth + parseInt(getComputedStyle(track).gap || '0', 10); }
+  var dots = [];
+  items.forEach(function(_, i){
+    var d = document.createElement('button'); d.type = 'button';
+    d.className = 'works-dot' + (i===0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Слайд ' + (i+1));
+    d.addEventListener('click', function(){ track.scrollTo({ left: i * step(), behavior: 'smooth' }); });
+    dotsWrap.appendChild(d); dots.push(d);
+  });
+  dotsEl.appendChild(prev); dotsEl.appendChild(dotsWrap); dotsEl.appendChild(next);
+
+  function curIdx(){ return Math.round(track.scrollLeft / step()); }
+  prev.addEventListener('click', function(){ track.scrollTo({ left: Math.max(0, curIdx()-1) * step(), behavior: 'smooth' }); });
+  next.addEventListener('click', function(){ track.scrollTo({ left: (curIdx()+1) * step(), behavior: 'smooth' }); });
+
+  function update(){
+    var idx = curIdx();
+    dots.forEach(function(d, n){ d.classList.toggle('active', n === idx); });
+    var atStart = track.scrollLeft <= 2;
+    var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    prev.disabled = atStart; next.disabled = atEnd;
+  }
+  track.addEventListener('scroll', update, { passive:true });
+  window.addEventListener('resize', update);
+  requestAnimationFrame(update);
+  return update;
+}
+
+// ---- works: горизонтальный скролл ----
 (function(){
   var track  = document.getElementById('worksGrid');
   var dotsEl = document.getElementById('worksDots');
-  if(!track || !dotsEl) return;
-
-  var items = Array.from(track.querySelectorAll('.work-item'));
-  var dots = [];
-
-  items.forEach(function(_, i){
-    var b = document.createElement('button');
-    b.className = 'works-dot' + (i===0 ? ' active' : '');
-    b.setAttribute('aria-label', 'Работа ' + (i+1));
-    b.addEventListener('click', function(){ scrollToIdx(i); });
-    dotsEl.appendChild(b);
-    dots.push(b);
-  });
-
-  function step(){
-    return items[0] ? items[0].offsetWidth + parseInt(getComputedStyle(track).gap || '0', 10) : 1;
-  }
-  function scrollToIdx(i){ track.scrollTo({ left: i * step(), behavior: 'smooth' }); }
-  function update(){
-    var idx = Math.round(track.scrollLeft / step());
-    dots.forEach(function(d, n){ d.classList.toggle('active', n === idx); });
-  }
-  track.addEventListener('scroll', update, { passive:true });
+  if(track && dotsEl) buildScroller(track, dotsEl);
 })();
 
 // ---- gallery: category tabs + lightbox ----
@@ -202,36 +222,40 @@
       p.classList.toggle('is-active', on);
       if(on){ p.removeAttribute('hidden'); } else { p.setAttribute('hidden',''); }
     });
+    // пересчитать точки/затухание для показанной панели (ширина теперь известна)
+    if(panelUpd[cat]) requestAnimationFrame(panelUpd[cat]);
   }
   tabsEl.addEventListener('click', function(e){
     var tab = e.target.closest('.gal-tab');
     if(tab) activate(tab.dataset.cat);
   });
 
-  // ---- per-panel horizontal scroll + dots (как у тотальных работ) ----
+  // клавиатура: ←/→ между вкладками, Home/End — к краям (как ожидает role="tablist")
+  tabsEl.addEventListener('keydown', function(e){
+    var i = tabs.indexOf(document.activeElement);
+    if(i < 0) return;
+    var to = -1;
+    if(e.key === 'ArrowRight') to = (i + 1) % tabs.length;
+    else if(e.key === 'ArrowLeft') to = (i - 1 + tabs.length) % tabs.length;
+    else if(e.key === 'Home') to = 0;
+    else if(e.key === 'End') to = tabs.length - 1;
+    if(to < 0) return;
+    e.preventDefault();
+    tabs[to].focus();
+    activate(tabs[to].dataset.cat);
+  });
+
+  // ---- per-panel horizontal scroll (dots + arrows) ----
+  var panelUpd = {};
   panelEls.forEach(function(panel){
     var track = panel.querySelector('.gal-grid');
     if(!track) return;
-    var pics = Array.from(track.children); // элементы скролла: пары и одиночные фото
-    if(pics.length < 2) return;            // один элемент — точки не нужны
-
     var dotsEl = document.createElement('div');
     dotsEl.className = 'gal-dots';
-    var dots = [];
-    function step(){ return pics[0].offsetWidth + parseInt(getComputedStyle(track).gap || '0', 10); }
-    pics.forEach(function(_, i){
-      var b = document.createElement('button');
-      b.className = 'works-dot' + (i===0 ? ' active' : '');
-      b.setAttribute('aria-label', 'Пример ' + (i+1));
-      b.addEventListener('click', function(){ track.scrollTo({ left: i * step(), behavior: 'smooth' }); });
-      dotsEl.appendChild(b);
-      dots.push(b);
-    });
     panel.appendChild(dotsEl);
-    track.addEventListener('scroll', function(){
-      var idx = Math.round(track.scrollLeft / step());
-      dots.forEach(function(d, n){ d.classList.toggle('active', n === idx); });
-    }, { passive:true });
+    var upd = buildScroller(track, dotsEl);
+    if(upd) panelUpd[panel.dataset.cat] = upd;
+    else dotsEl.remove();                       // одна карточка — управление не нужно
   });
 
   // ---- lightbox (листание в пределах активной категории) ----
