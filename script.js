@@ -266,7 +266,7 @@ function buildScroller(track, dotsEl){
     if(!visible.length) return;
     current = (i + visible.length) % visible.length;   // wrap around
     var img = visible[current].querySelector('img');
-    lbImg.src = img.src;
+    lbImg.src = img.currentSrc || img.src;   // переиспользуем уже загруженный webp
     lbImg.alt = img.alt;
   }
   function open(item){

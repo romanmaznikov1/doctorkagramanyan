@@ -3,6 +3,9 @@
 .DS_Store
 skills-lock.json
 
+# Бэкап оригиналов фото (полноразмерные исходники; в репо лежат оптимизированные)
+/images/originals/
+
 # Playwright (тестовая обвязка — не часть сайта)
 node_modules/
 /test-results/
