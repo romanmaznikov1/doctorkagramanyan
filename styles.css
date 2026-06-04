@@ -252,12 +252,6 @@ nav{
   font-weight:600;font-size:1rem;line-height:1.3;color:var(--ink);
 }
 
-/* пара «до|после» рядом — для портретных снимков внутри works
-   (высота совпадает с ползунками 3:2: две колонки 3/4 ≈ 3/2) */
-.work-pair{display:flex;gap:3px;background:var(--ice-2)}
-.work-shot{position:relative;flex:1 1 50%;aspect-ratio:3/4;overflow:hidden}
-.work-shot img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-
 .ba-slider{
   position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:22px;
   background:var(--ice-2);box-shadow:var(--shadow);
@@ -357,7 +351,7 @@ nav{
 
 /* горизонтальный скролл-трек примеров (как у тотальных работ) */
 .gal-grid{
-  --tile:clamp(160px,38vw,360px);
+  --h:clamp(220px,30vw,372px);        /* единая высота фото; ширина следует за пропорцией */
   display:flex;gap:clamp(12px,1.4vw,20px);
   overflow-x:auto;overflow-y:clip;overflow-clip-margin:44px;
   scroll-snap-type:x mandatory;
@@ -366,30 +360,36 @@ nav{
 }
 .gal-grid::-webkit-scrollbar{display:none}
 
-/* карточка-кейс = элемент скролла; ширину задаёт фото, а не подпись */
+/* карточка-кейс = элемент скролла; ширину задаёт фото на фикс. высоте */
 .gal-card{
-  flex:0 0 auto;scroll-snap-align:start;
-  width:var(--tile);                 /* одиночное фото */
+  flex:0 0 auto;scroll-snap-align:start;width:auto;
   display:flex;flex-direction:column;
   background:var(--surface);border-radius:18px;overflow:hidden;
   box-shadow:0 14px 32px -20px rgba(44,53,59,.22);
   transition:transform .25s var(--ease),box-shadow .25s var(--ease);
 }
-.gal-card:has(.gal-pair){width:calc(var(--tile) * 2 + 3px)}  /* пара «до|после» */
 .gal-card:hover{transform:translateY(-3px);box-shadow:0 20px 40px -22px rgba(44,53,59,.3)}
 
 /* пара «до|после» и одиночное фото внутри карточки */
-.gal-pair{display:flex;gap:3px;width:100%}
-.gal-single{width:100%}
+.gal-pair{display:flex;gap:3px;height:var(--h)}
+.gal-single{height:var(--h)}
 
-/* фото-ячейки (кликабельны → лайтбокс) */
+/* фото-ячейки (кликабельны → лайтбокс); высота единая, ширина — по пропорции снимка */
 .gal-shot,.gal-single{
   position:relative;display:block;padding:0;border:none;background:var(--ice-2);
-  aspect-ratio:4/3;cursor:zoom-in;overflow:hidden;
+  flex:0 0 auto;height:100%;width:auto;min-width:120px;
+  cursor:zoom-in;overflow:hidden;
 }
-.gal-shot{flex:0 0 var(--tile)}
+.gal-single{height:var(--h)}
 .gal-shot:focus-visible,.gal-single:focus-visible{outline:2px solid var(--brand);outline-offset:-3px}
-.gal-img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s var(--ease)}
+.gal-img{display:block;height:100%;width:auto;object-fit:cover;object-position:center;transition:transform .5s var(--ease)}
+
+/* кейсы имплантации — портретный кадр 3:4 (как было в разделе работ) */
+#panel-implant .gal-shot{aspect-ratio:3/4}
+#panel-implant .gal-img{width:100%}
+
+/* ползунки «до/после» внутри карточки галереи — единая высота, ширина по кадру 3:2 */
+.gal-card .ba-slider{height:var(--h);aspect-ratio:3/2;border-radius:0;box-shadow:none}
 .gal-shot:hover .gal-img,.gal-single:hover .gal-img{transform:scale(1.05)}
 
 /* подпись кейса */
